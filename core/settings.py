@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "products",
     "pages",
     "categories",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,10 @@ if DEBUG:
 
     MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
     INTERNAL_IPS = ["127.0.0.1"]
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]

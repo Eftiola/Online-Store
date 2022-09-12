@@ -1,1 +1,33 @@
-<h1>contact us</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<figure class="text-center">
+    <div class="p-0 mb-2 bg-light text-dark">
+        <blockquote class="blockquote">
+            <p><strong>Feedback</strong></p>
+        </blockquote>
+        <p class="fw-lighter">  If you have any question, suggestion or complain, please leave your feedback here.</p>
+    </div>
+</figure>
+
+<form action="" method="POST" class="card p-3 mt-5" autocomplete="off">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <hr>
+    <p>
+
+        <button class="btn btn-primary" type="submit">Send</button>
+    </p>
+
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-primary alert-dismissable fade show" role="alert">
+        {{messages}}
+        <a href="{% url 'contact-us' %}" type="button" class="btn btn-close" data-bs-dissmiss="alert" aria-label="Close"></a>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+</form>
+{% endblock content %}
