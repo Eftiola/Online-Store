@@ -6,6 +6,11 @@
     <a class="btn btn-secondary" href="{% url 'product-edit' pk=product.pk %}"
       >Edit</a
     >
+    <div>
+      <a class="btn btn-info" href="{% url 'add-to-cart' slug=product.slug%}"
+        >Add Cart</a
+      >
+    </div>
   </div>
 </div>
 

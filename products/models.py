@@ -32,16 +32,37 @@ class Product(models.Model):
 
 
 class OrderLine(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    product_price=models.FloatField()
+    # product_price = models.FloatField()
     ordered = models.BooleanField(default=False)
-
-  
 
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"
-    
-    def get_total_product_price(self):
-        return self.quantity * self.product.price
+
+    # def get_total_product_price(self):
+    #     return self.quantity * self.product.price
+
+
+class Order(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE
+    )
+    products = models.ManyToManyField(OrderLine)
+    date_of_submission = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+    # total_cost = models.FloatField()
+    #   Delivery address
+    #   User address
+    #   Client (entity)
+
+    def __str__(self):
+        return self.user.username
+
+    # def get_total(self):
+    #     total = 0
+    #     for order_product in self.product.all():
+    #         total += order_product.get_total_product_price()
+    #     return total
