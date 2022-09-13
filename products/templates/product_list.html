@@ -1,6 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <h1>All Product</h1>
 
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a class="btn btn-info" href="{% url 'product_add' %}">Add new Product</a>
+</div>
+
 {% for page in page_obj.paginator.page_range %}
 <a href="{% url 'product_list' %}?page={{ page }}">{{ page }}</a>
 {% endfor %}
