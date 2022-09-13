@@ -4,6 +4,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 
+def home(request):
+    return render(request, "home.html")
+
+
 def contact_us(request):
     form = FeedbackForm(request.POST or None)
     if form.is_valid():
