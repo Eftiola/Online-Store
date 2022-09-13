@@ -1,9 +1,14 @@
-{% extends 'base.html' %} 
-
-
- {% block content %}
- <h1>All Categories</h1>
- 
-
- 
- {%endblock%}
+{% extends "base.html" %} {% block title %}Categories {%endblock title %}
+{%block content %}
+<h1>Categories</h1>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a class="btn btn-info" href="{% url 'category_add' %}">Add new Category</a>
+</div>
+<ul>
+  {% for cat in cat_list %}
+  <li>
+    <a href="{% url 'categories_list' %}">{{ cat }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock content %}
