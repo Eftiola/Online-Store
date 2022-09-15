@@ -60,6 +60,13 @@
                 <a class="nav-link" href="#">Sign Up</a>
                 {% endif %}
               </div>
+              <form class="d-flex" method=POST action="{% url 'search_product' %}">
+
+                {% csrf_token %}
+
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+                <button class="btn btn-outline-secondary " type="submit">Search</button>
+              </form>
             </div>
           </div>
         </div>

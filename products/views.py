@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from categories.models import Category
 from .models import Product, OrderLine, Order
 from django.core.paginator import Paginator
@@ -10,15 +10,31 @@ def get_products(request):
     page_no = int(request.GET.get("page", "1"))
     page_size = int(request.GET.get("size", "3"))
 
-    products = Product.objects.order_by('-id').all()
+    products = Product.objects.order_by("-id").all()
     paginator = Paginator(products, page_size)
     page_obj = paginator.page(page_no)
 
-    return render(request, "product_list.html", context={
-        "products": products,
-        "paginator": paginator,
-        "page_obj": page_obj
-    })
+    return render(
+        request,
+        "product_list.html",
+        context={"products": products, "paginator": paginator, "page_obj": page_obj},
+    )
+
+
+def search_product(request):
+    if request.method == "POST":
+        searched = request.POST["searched"]
+        prod = Product.objects.filter(title__contains=searched)
+        cats = Category.objects.filter(name__contains=searched)
+        return render(
+            request,
+            "search_product.html",
+            {"searched": searched, "prod": prod, "cats": cats},
+        )
+
+    else:
+
+        return render(request, "search_product.html", {})
 
 
 def get_product_details(request, pk):
