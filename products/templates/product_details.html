@@ -18,6 +18,9 @@
   <div class="product-item">
     <p class="product-description">{{ product.description }}</p>
     <p class="product-price">${{ product.price }}</p>
+    {% if product.photo %}
+    <img class="product-photo" src="{{product.photo.url}}" width="200" />
+    {%endif%}
   </div>
 </div>
 

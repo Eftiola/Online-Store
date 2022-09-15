@@ -2,21 +2,59 @@
 <h1>All Product</h1>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a class="btn btn-info" href="{% url 'product_add' %}">Add new Product</a>
+  <a class="btn btn-info" href="{% url 'product_add' %}">Add Product</a>
 </div>
 
-{% for page in page_obj.paginator.page_range %}
-<a href="{% url 'product_list' %}?page={{ page }}">{{ page }}</a>
-{% endfor %}
+<div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li
+        class="page-item{% if not page_obj.has_previous %} disabled{% endif %}"
+      >
+        <a
+          class="page-link"
+          href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}"
+          >Previous</a
+        >
+      </li>
+      {% for page in page_obj.paginator.page_range %}
+      <li class="page-item">
+        {% if page == paginator.ELLIPSIS %}
+        <span class="page-link disabled">{{ page }}</span>
+        {% else %}
+        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+      <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+        <a
+          class="page-link"
+          href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}"
+          >Next</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>
 
-<section class="product-list">
+<br />
+<div class="row row-cols-1 row-cols-md-3 g-4">
   {% for product in page_obj %}
-  <div class="product-item">
-    <a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a>
-    <p class="product-item-description">{{ product.description }}</p>
-    <p class="product-item-price">${{ product.price }}</p>
+  <div class="card mt-2">
+    <div>
+      <br />
+      <div class="card-body">
+        <a href="{% url 'product_details' pk=product.pk %}">
+          <h5 class="card-title fw-bold">{{ product.title }}</h5></a
+        >
+        {% if product.photo %}
+        <img class="card-img-top" src="{{product.photo.url}}" width="200" />
+        {%endif%}
+        <p class="card-text">{{product.description|truncatewords:30 }}</p>
+      </div>
+    </div>
   </div>
   {% endfor %}
-</section>
+</div>
 
 {% endblock content %}
