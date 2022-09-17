@@ -11,6 +11,7 @@ LABEL_CHOICES = (
 )
 
 
+
 class Product(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE
@@ -26,6 +27,7 @@ class Product(models.Model):
     )
     price = models.FloatField()
     product_type = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    
 
     def __str__(self):
         return self.title

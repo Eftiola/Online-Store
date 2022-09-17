@@ -4,7 +4,6 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <a class="btn btn-info" href="{% url 'product_add' %}">Add Product</a>
 </div>
-
 <div>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
@@ -36,7 +35,7 @@
     </ul>
   </nav>
 </div>
-
+<br />
 <br />
 <div class="row row-cols-1 row-cols-md-3 g-4">
   {% for product in page_obj %}
