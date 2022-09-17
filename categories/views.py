@@ -1,21 +1,21 @@
 from django.shortcuts import render, redirect
 
-from .models import Category
-from products.models import Product
 
+from .models import Category
 from .forms import CategoryForm
 
 
-def get_categories_list(request):
-    cat_list = Category.objects.all()
-    category = request.GET.get("category")
+# from mptt.exceptions import InvalidMove
+# from mptt.forms import MoveNodeForm
 
-    products = Product.objects.filter(category__name=category)
+
+def get_categories_list(request):
+    categories = Category.objects.all()
 
     return render(
         request,
         "categories_list.html",
-        context={"cat_list": cat_list, "products": products},
+        context={"categories": categories},
     )
 
 

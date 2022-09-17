@@ -1,10 +1,25 @@
-{% extends "base.html" %} {% block title %}Categories {%endblock title %}
+{% extends "base.html" %} {% load mptt_tags %} {% block title %}Categories {%endblock title %}
 {%block content %}
 <h1>Categories</h1>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <a class="btn btn-info" href="{% url 'category_add' %}">Add new Category</a>
 </div>
-<div class="col-md-4">
+
+<ul class="root">
+  {% recursetree categories %}
+      <li>
+          <a  href="{% url 'product_list' %}?cat={{ node.pk }}">{{ node.name }}</a>
+          {% if not node.is_leaf_node %}
+              <ul class="children">
+               {{ children }}
+              </ul>
+          {% endif %}
+      </li>
+  {% endrecursetree %}
+</ul>
+
+
+<!-- <div class="col-md-4">
   
   <a href="{% url 'product_list' %}">All</a>
   {% for category in cat_list %}
@@ -12,5 +27,5 @@
     <a href="{% url 'product_list' %}?category={{category.name}}">{{ category.name }}</a>
   </li>
   {% endfor %}
-</div>
+</div>  -->
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 from django.conf import settings
 from categories.models import Category
 
@@ -9,7 +9,6 @@ LABEL_CHOICES = (
     ("P", "primary"),
     ("S", "secondary"),
 )
-
 
 
 class Product(models.Model):
@@ -27,7 +26,6 @@ class Product(models.Model):
     )
     price = models.FloatField()
     product_type = models.CharField(choices=LABEL_CHOICES, max_length=1)
-    
 
     def __str__(self):
         return self.title

@@ -11,6 +11,17 @@ def get_products(request):
     page_size = int(request.GET.get("size", "3"))
 
     products = Product.objects.order_by("-id").all()
+
+    category_id = request.GET.get("cat")
+    if category_id is not None:
+        try:
+            category = Category.objects.get(pk=category_id)
+        except Category.DoesNotExist:
+            pass
+        else:
+            categories = category.get_descendants(include_self=True)
+            products = products.filter(category__in=categories)
+
     paginator = Paginator(products, page_size)
     page_obj = paginator.page(page_no)
 
