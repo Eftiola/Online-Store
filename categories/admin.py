@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Category
 
+from mptt.admin import MPTTModelAdmin
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+
+admin.site.register(Category, MPTTModelAdmin)
