@@ -1,9 +1,18 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as _UserAdmin
-
 from .models import User
-
-
-@admin.register(User)
-class UserAdmin(_UserAdmin):
-    pass
+from django.contrib.auth.admin import UserAdmin
+from django.forms import TextInput, Textarea
+class UserAdminConfig(UserAdmin):
+    model = User
+    search_fields = ('email', 'username', 'first_name',)
+    list_filter = ('email', 'username', 'first_name', 'is_active', 'is_staff')
+    ordering = ('-start_date',)
+    list_display = ('email', 'username', 'first_name',
+                    'is_active', 'is_staff')
+    fieldsets = (
+        (None, {'fields': ('email', 'username', 'first_name',)}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Personal', {'fields': ('about',)}),
+    )
+admin.site.register(User, UserAdminConfig)
+# admin.site.register(User)
