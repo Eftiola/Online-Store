@@ -4,11 +4,13 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <a class="btn btn-info" href="{% url 'category_add' %}">Add new Category</a>
 </div>
-<ul>
-  {% for cat in cat_list %}
+<div class="col-md-4">
+  
+  <a href="{% url 'product_list' %}">All</a>
+  {% for category in cat_list %}
   <li>
-    <a href="{% url 'categories_list' %}">{{ cat }}</a>
+    <a href="{% url 'product_list' %}?category={{category.name}}">{{ category.name }}</a>
   </li>
   {% endfor %}
-</ul>
+</div>
 {% endblock content %}

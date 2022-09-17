@@ -1,14 +1,22 @@
-
 from django.shortcuts import render, redirect
 
 from .models import Category
+from products.models import Product
 
 from .forms import CategoryForm
 
 
 def get_categories_list(request):
     cat_list = Category.objects.all()
-    return render(request, "categories_list.html", context={"cat_list": cat_list})
+    category = request.GET.get("category")
+
+    products = Product.objects.filter(category__name=category)
+
+    return render(
+        request,
+        "categories_list.html",
+        context={"cat_list": cat_list, "products": products},
+    )
 
 
 def category_add(request):
