@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     "categories",
     "crispy_forms",
     "crispy_bootstrap5",
-    "mptt"
+    "mptt",
 ]
 
 MIDDLEWARE = [
@@ -58,6 +58,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "products.context_processors.cart_total_amount",
             ],
         },
     },
@@ -139,4 +140,11 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+
+
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+CART_SESSION_ID = "cart"

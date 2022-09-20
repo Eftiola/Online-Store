@@ -44,10 +44,11 @@
       <br />
       <div class="card-body">
         <a href="{% url 'product_details' pk=product.pk %}">
-          <h5 class="card-title fw-bold">{{ product.title }}</h5></a
+          <h5 class="card-name fw-bold">{{ product.name }}</h5></a
         >
-        {% if product.photo %}
-        <img class="card-img-top" src="{{product.photo.url}}" width="200" />
+        {% if product.image %}
+        <img class="card-img-top" src="{{product.image.url}}" width="200" />
+        
         {%endif%}
         <p class="card-text">{{product.description|truncatewords:30 }}</p>
       </div>
@@ -57,3 +58,5 @@
 </div>
 
 {% endblock content %}
+
+
