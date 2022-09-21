@@ -1,23 +1,24 @@
-{% extends "base.html" %} {% load mptt_tags %} {% block title %}Categories {%endblock title %}
-{%block content %}
+{% extends "base.html" %} {% load mptt_tags %} {% block title %}Categories
+{%endblock title %} {%block content %}
 <h1>Categories</h1>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  {% if request.user == product.user or perms.product.add_product %}
   <a class="btn btn-info" href="{% url 'category_add' %}">Add new Category</a>
+  {%endif%}
 </div>
 
 <ul class="root">
   {% recursetree categories %}
-      <li>
-          <a  href="{% url 'product_list' %}?cat={{ node.pk }}">{{ node.name }}</a>
-          {% if not node.is_leaf_node %}
-              <ul class="children">
-               {{ children }}
-              </ul>
-          {% endif %}
-      </li>
+  <li>
+    <a href="{% url 'product_list' %}?cat={{ node.pk }}">{{ node.name }}</a>
+    {% if not node.is_leaf_node %}
+    <ul class="children">
+      {{ children }}
+    </ul>
+    {% endif %}
+  </li>
   {% endrecursetree %}
 </ul>
-
 
 <!-- <div class="col-md-4">
   

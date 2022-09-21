@@ -2,7 +2,9 @@
 <h1>All Product</h1>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  {% if request.user == product.user or perms.product.add_product %}
   <a class="btn btn-info" href="{% url 'product_add' %}">Add Product</a>
+  {%endif%}
 </div>
 <div>
   <nav aria-label="Page navigation example">
@@ -48,7 +50,7 @@
         >
         {% if product.image %}
         <img class="card-img-top" src="{{product.image.url}}" width="200" />
-        
+
         {%endif%}
         <p class="card-text">{{product.description|truncatewords:30 }}</p>
       </div>
@@ -58,5 +60,3 @@
 </div>
 
 {% endblock content %}
-
-

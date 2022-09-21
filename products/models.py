@@ -12,7 +12,7 @@ LABEL_CHOICES = (
 
 
 class Product(models.Model):
-    author = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE
     )
     name = models.CharField(max_length=100)

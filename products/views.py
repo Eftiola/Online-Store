@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.utils import timezone
 import stripe
+from django.contrib.auth.models import Group, User, Permission
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import Product
 from .cart import Cart
@@ -57,12 +59,12 @@ def search_product(request):
 
         return render(request, "search_product.html", {})
 
-
+@login_required
 def get_product_details(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, "product_details.html", context={"product": product})
 
-
+@permission_required("product.add_product", login_url="/login", raise_exception=True)
 def product_add(request):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
@@ -95,30 +97,7 @@ def edit_product(request, pk):
     )
 
 
-# def add_to_cart(request, slug):
-#     product = get_object_or_404(Product, slug=slug)
-#     order_line, created = OrderLine.objects.get_or_create(
-#         product=product, user=request.user, ordered=False
-#     )
-#     order_qs = Order.objects.filter(user=request.user, ordered=False)
-#     if order_qs.exists():
-#         order = order_qs[0]
-#         # check if the order product is in the order
-#         if order.products.filter(product__slug=product.slug).exists():
-#             order_line.quantity += 1
-#             order_line.save()
-#             # messages.info(request, "This product quantity was updated.")
-#             # return redirect("core:order-summary")
-#         else:
-#             order.products.add(order_line)
-#             # messages.info(request, "This product was added to your cart.")
-#             # return redirect("core:order-summary")
-#     else:
-#         ordered_date = timezone.now()
-#         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
-#         order.products.add(order_line)
-#         # messages.info(request, "This product was added to your cart.")
-#     return redirect("product_list")
+
 
 
 

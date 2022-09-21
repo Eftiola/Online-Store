@@ -3,11 +3,15 @@
 <div class="d-flex justify-content-between align-items-center">
   <h2 style="color: rgb(84, 110, 84)">{{ product.name }}</h2>
   <div>
+    {%if request.user == event.user or user.is_superuser%}
     <a class="btn btn-secondary" href="{% url 'product-edit' pk=product.pk %}"
       >Edit</a
     >
+    {%endif%}
     <div>
-      <a href="{% url 'cart_add' id=product.id %}" class="btn btn-primary">Add to Cart</a>
+      <a href="{% url 'cart_add' id=product.id %}" class="btn btn-primary"
+        >Add to Cart</a
+      >
     </div>
   </div>
 </div>
