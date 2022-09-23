@@ -10,3 +10,13 @@ def cart_total_amount(request):
         return {"cart_total_amount": total_bill}
     else:
         return {"cart_total_amount": 0}
+
+def cart_total_quantity(request):
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        total = 0
+        for key, value in request.session["cart"].items():
+            total = total + int(value["quantity"])
+        return {"cart_total_quantity": total}
+    else:
+        return {"cart_total_quantity": 0}
