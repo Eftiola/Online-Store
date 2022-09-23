@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from categories.models import Category
-from .models import Product
 from django.core.paginator import Paginator
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
+from django.views.decorators.csrf import csrf_exempt
+import stripe
+from django.conf import settings
+from .models import Product
 from .cart import Cart
+from django.http import JsonResponse
 
 
 def get_products(request):
@@ -137,3 +141,61 @@ def cart_clear(request):
 @login_required
 def cart_detail(request):
     return render(request, "cart_detail.html")
+
+
+@csrf_exempt
+def get_stripe_pubkey(request):
+    if request.method == "GET":
+        pub_key = settings.STRIPE_PUBLISHABLE_KEY
+        return JsonResponse({"publicKey": pub_key})
+
+
+@csrf_exempt
+@login_required
+def create_checkout_session(request):
+    if request.method == "GET":
+        domain_url = "http://localhost:8000/"
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        line_items = []
+        for key, product in request.session["cart"].items():
+            line_items.append(
+                {
+                    "price_data": {
+                        "currency": "eur",
+                        "unit_amount": int(float(product["price"]) * 100),
+                        "product_data": {
+                            "name": product["name"],
+                            "description": product["description"],
+                            "images": [
+                                domain_url + product["image"][1:],
+                            ],
+                        },
+                    },
+                    "quantity": int(product["quantity"]),
+                }
+            )
+
+        try:
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url
+                + "products/payments/success/?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url=domain_url + "products/payments/cancelled/",
+                payment_method_types=["card"],
+                mode="payment",
+                line_items=line_items,
+            )
+            return JsonResponse({"sessionId": checkout_session["id"]})
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
+
+
+def payment_success(request):
+    cart = Cart(request)
+    cart.clear()
+    return render(request, "payment_success.html")
+
+
+def payment_cancel(request):
+    return render(request, "payment_cancelled.html")

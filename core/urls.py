@@ -7,7 +7,7 @@ from pages import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('django.contrib.auth.urls')),
-    path("product/", include("products.urls")),
+    path("products/", include("products.urls")),
     path("users/", include("users.urls")),
     path("pages/", include("pages.urls")),
     path("categories/", include("categories.urls")),

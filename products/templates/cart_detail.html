@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static cart_tags %}
+{% load static %}
 
 {% block content %}
 <section class="h-100" style="background-color: #eee;">
@@ -59,10 +60,6 @@
               <a href="{% url 'item_clear' id=product.product_id %}" class="btn btn-danger">
                 <i class="bi bi-trash"></i></a>
             </div>
-
-
-
-
           </div>
         </div>
       </div>
@@ -79,20 +76,28 @@
           <h5 class="mb-6">
             
             $ {{ request.session.cart|total_amount }}</h5>
-            <button type="button" class="btn btn-outline-success btn-bg bg-1">Pay</button>
+            <div class="text-end">
+              <button id="checkout-btn" class="btn btn-success btn-bg bg-1">
+                Pay
+              </button>
+            </div>
           </div>
-          
-        
-
         </div>
       </div>
-
-
       </div>
-
     </div>
     </div>
   </div>
 </section>
 {% endblock content %}
 
+{% block scripts %}
+{{ block.super }}
+<script>
+  
+const PAYMENTS_KEY_URL = "{% url 'payments_pubkey' %}";
+const PAYMENTS_CHECKOUT_SESSION_URL = "{% url 'payments_checkout_session' %}";
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'scripts/payments.js' %}"></script>
+{% endblock scripts %}

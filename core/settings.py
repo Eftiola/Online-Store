@@ -1,20 +1,23 @@
 from pathlib import Path
 import os
+from environs import Env
 
+
+
+env = Env()
+env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-o=+8w1%n63a8%jc-v8t9i&0q^u3yo588sxc2+%qu96%3y!u+9v"
-
+SECRET_KEY = env("SECRET_KEY", "SuperSecret")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 
 # Application definition
@@ -71,12 +74,8 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+_default_dburl = (BASE_DIR / "db.sqlite3").as_uri().replace("file:/", "sqlite:/")
+DATABASES = {"default": env.dj_db_url("DATABASE_URL", default=_default_dburl)}
 
 
 # Password validation
@@ -114,6 +113,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [BASE_DIR / "assets"]
+
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -146,6 +151,8 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 
-
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 CART_SESSION_ID = "cart"
+
+
+STRIPE_PUBLISHABLE_KEY = env.str("STRIPE_PUBLISHABLE_KEY", 'pk_test_51LkDf2HMG1hOZ6nUzXwP6Go2QSBil63Tc3fifFsZ3it96nPZYdpTgouKVov1bTLf5d0ihuDmkfITG2rTHLreHtrd00v0l20boY')
+STRIPE_SECRET_KEY = env.str("STRIPE_SECRET_KEY",'sk_test_51LkDf2HMG1hOZ6nUV2c037ElYNiGlws83VQSSXQZ0YDTH3zG9kj7THGvR67O0jPeVOtTMVdLqBvWJSxxmBHdK5XC00af5VZ1q6')
