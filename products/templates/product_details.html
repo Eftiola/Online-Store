@@ -1,29 +1,84 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="d-flex justify-content-between align-items-center">
-  <h2 style="color: rgb(84, 110, 84)">{{ product.name }}</h2>
+  <h2 style="color: rgb(230, 64, 155)">{{ product.name }}</h2>
   <div>
     {%if request.user == event.user or user.is_superuser%}
-    <a class="btn btn-secondary" href="{% url 'product-edit' pk=product.pk %}"
+    <a
+      class="btn btn-outline-success"
+      href="{% url 'product-edit' pk=product.pk %}"
       >Edit</a
     >
     {%endif%}
+    <br /><br />
     <div>
-      <a href="{% url 'cart_add' id=product.id %}" class="btn btn-primary"
+      <a href="{% url 'cart_add' id=product.id %}" class="btn btn-outline-info"
         >Add to Cart</a
       >
     </div>
   </div>
 </div>
-
-<div class="product-details-header">
-  <div class="product-item">
-    <p class="product-description">{{ product.description }}</p>
-    <p class="product-category">{{ product.category }}</p>
-    <p class="product-price">${{ product.price|floatformat:2 }}</p>
-    {% if product.image %}
-    <img class="product-image" src="{{product.image.url}}" width="200" />
-    {%endif%}
+<br /><br />
+<div class="container">
+  <div
+    class="card"
+    style="
+      height: 400px;
+      width: 400px;
+      border-radius: 10px;
+      background-color: rgb(252, 195, 195);
+      overflow: hidden;
+      cursor: pointer;
+    "
+  >
+    <div
+      class="border"
+      style="
+        height: 220px;
+        width: 100%;
+        border: 2px solid rgb(243, 203, 203);
+        background-color: #f1bfbf;
+        border: none;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <i class="fa fa-heart"></i>
+      {% if product.image %}
+      <img
+        class="product-image"
+        style="
+          height: 150px;
+          width: 150px;
+          object-fit: cover;
+          transition: all 2s;
+        "
+        src="{{product.image.url}}"
+        width="200"
+      />
+      {%endif%}
+    </div>
+    <div
+      class="central-div"
+      style="display: flex; justify-content: space-between; padding: 20px 10px"
+    >
+      <h3
+        style="
+          display: flex;
+          justify-content: space-between;
+          font-size: 12px;
+          padding: 2px 1px;
+        "
+      >
+        {{ product.description }}
+      </h3>
+      <i class="fa fa-bookmark"></i>
+    </div>
+    <div class="price" style="color: #54627b; padding: 0px 10px">
+      <p>${{ product.price|floatformat:2 }}</p>
+    </div>
   </div>
 </div>
 

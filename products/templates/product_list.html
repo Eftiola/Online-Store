@@ -3,7 +3,9 @@
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   {% if request.user == product.user or perms.product.add_product %}
-  <a class="btn btn-info" href="{% url 'product_add' %}">Add Product</a>
+  <a class="btn btn-outline-success" href="{% url 'product_add' %}"
+    >Add Product</a
+  >
   {%endif%}
 </div>
 <div>
@@ -46,7 +48,9 @@
       <br />
       <div class="card-body">
         <a href="{% url 'product_details' pk=product.pk %}">
-          <h5 class="card-name fw-bold">{{ product.name }}</h5></a
+          <h5 class="card-name fw-bold" style="color: rgb(231, 117, 132)">
+            {{ product.name }}
+          </h5></a
         >
         {% if product.image %}
         <img class="card-img-top" src="{{product.image.url}}" width="200" />
