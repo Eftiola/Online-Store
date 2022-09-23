@@ -3,12 +3,7 @@ from django.shortcuts import render, redirect
 
 from .models import Category
 from .forms import CategoryForm
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import Group, User, Permission
-
-
-# from mptt.exceptions import InvalidMove
-# from mptt.forms import MoveNodeForm
+from django.contrib.auth.decorators import permission_required
 
 
 def get_categories_list(request):
@@ -19,6 +14,7 @@ def get_categories_list(request):
         "categories_list.html",
         context={"categories": categories},
     )
+
 
 @permission_required("product.add_category", login_url="/login", raise_exception=True)
 def category_add(request):
