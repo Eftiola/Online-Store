@@ -3,19 +3,8 @@ from categories.models import Category
 from .models import Product
 from django.core.paginator import Paginator
 from .forms import ProductForm
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-
-# from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# from django.conf import settings
-
-# import stripe
-# from django.contrib.auth.models import Group, User, Permission
-from django.contrib.auth.decorators import login_required, permission_required
-
-from .models import Product
+from django.contrib.auth.decorators import permission_required
 from .cart import Cart
 
 

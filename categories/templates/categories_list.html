@@ -26,9 +26,11 @@
           
         </div>
         </center>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="position: absolute;
+        left: 30px;
+        top: 50px;">
           {% if request.user == product.user or perms.product.add_product %}
-             <center><small><a class="btn btn-info" href="{% url 'category_add' %}" style="background-color:bisque;color: gray;" >Add new Category</a></small></center>
+             <small><a class="btn btn-info" href="{% url 'category_add' %}" style="background-color:bisque;color: gray;" >Add new Category</a></small>
           {%endif%}   
         </div>
       </div>
