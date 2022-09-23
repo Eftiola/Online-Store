@@ -1,8 +1,108 @@
+
+
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block content %}
+<style>
 
-Home
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap");
+       
+    /* Intro */
+    .intro {
+      height: calc(50vh - 110px);
+      overflow: hidden;
+      position: relative;
+      z-index: 0;
+      background-color: lightgray;
+      background-image: url('wallet1.jpg');
+      background-repeat: no-repeat;
+      background-attachment: scroll; 
+      background-size: 100% 100%;
+      text-align: center;
+
+}
+
+    #btn-shop {
+        display: inline-block;
+        border-radius: 80px;
+        background-color: #eea295;
+        padding: 20px 80px;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+        margin-top: 75px;
+        margin-left: 50px;
+      }
+    
+    /* Section */
+    .section {
+      padding: 50px 0 0 0;
+    }
+    
+    /* Benefits */
+    .icons{
+    display: none;
+    }
+    .benefit-center {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 80px;
+    }
+    
+    .benefit {
+      border: 1px solid #ccc;
+      padding: 16px 16px 32px 16px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    .benefit .icon {
+      color:  #ff4321;
+      font-size: 64px;
+    }
+    
+    .benefit h4 {
+      margin-bottom: 5px;
+    }
+    
+    .benefit .text {
+      font-size: 24px;
+      color: #777;
+    }
+          
+</style>
+
+<div class="intro">
+     <h3>Enjoy shopping with quality products</h3>
+          <a href="{% url 'product_list' %}" class="btn" id="btn-shop">SHOP NOW</a>
+    </div>
+  </header>
+
+  <!--Benefits  -->
+  <section class="section benefits">
+    <div class="benefit-center box">
+      <div class="benefit">
+        <span class="icon"><i class="bx bx-purchase-tag"></i></span>
+        <h4>Free Shipping</h4>
+        <span class="text">No matter the total price</span>
+      </div>
+     
+      <div class="benefit">
+        <span class="icon"><i class="bx bx-book-reader"></i></span>
+        <h4>10-Day Returns</h4>
+        <span class="text">Shop without any fear</span>
+      </div>
+
+      <div class="benefit">
+        <span class="icon"><i class="bx bx-headphone"></i></span>
+        <h4>24/7 Support</h4>
+        <span class="text">Always here to help you</span>
+      </div>
+    </div>
+  </section>
+
 
 {% endblock content %}
