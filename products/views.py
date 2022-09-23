@@ -4,14 +4,15 @@ from .models import Product
 from django.core.paginator import Paginator
 from .forms import ProductForm
 from django.utils import timezone
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
 from django.utils import timezone
-import stripe
-from django.contrib.auth.models import Group, User, Permission
+
+# from django.http import JsonResponse
+# from django.views.decorators.csrf import csrf_exempt
+# from django.conf import settings
+
+# import stripe
+# from django.contrib.auth.models import Group, User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import Product
@@ -47,7 +48,7 @@ def get_products(request):
 def search_product(request):
     if request.method == "POST":
         searched = request.POST["searched"]
-        prod = Product.objects.filter(title__contains=searched)
+        prod = Product.objects.filter(name__contains=searched)
         cats = Category.objects.filter(name__contains=searched)
         return render(
             request,
@@ -59,10 +60,12 @@ def search_product(request):
 
         return render(request, "search_product.html", {})
 
+
 @login_required
 def get_product_details(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, "product_details.html", context={"product": product})
+
 
 @permission_required("product.add_product", login_url="/login", raise_exception=True)
 def product_add(request):
@@ -95,10 +98,6 @@ def edit_product(request, pk):
             "product": product,
         },
     )
-
-
-
-
 
 
 @login_required
@@ -149,6 +148,3 @@ def cart_clear(request):
 @login_required
 def cart_detail(request):
     return render(request, "cart_detail.html")
-
-
-

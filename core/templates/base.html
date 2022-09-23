@@ -37,9 +37,22 @@
   </head>
   <body>
     <header class="d-flex flex-column h-100">
-      <nav class="navbar navbar-expand-lg bg-light">
+      <nav class="navbar navbar-light " style="background-color:bisque ; border-radius: 20px; color: grey;">
+        <div class="col-lg-6 text-left mb-2 mb-lg-0">
+          <div class="d-inline-flex align-items-center">
+            
+              <small><i class="bi bi-telephone-fill"></i>+355 69 34 56 789</small>
+              <small class="px-3">|</small>
+              
+              <small><i class="bi bi-envelope"></i>-online-store@gmail.com</small>
+          </div>
+        </div>
+        
+       
+      </nav>
+      <nav class="navbar  navbar-expand-lg " style="background-color:ghostwhite ; border-radius: 20px; color: grey;" >
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Online Store</a>
+          <a class="navbar-brand" href="#"><b><span  style="color:palevioletred;">Online</span> Store</b></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -110,15 +123,39 @@
     <main class="flex-shrink-0">
       <div class="container">{% block content %}{% endblock content %}</div>
     </main>
-    <footer class="footer mt-auto py-3 bg-light">
+    <p></p>
+    <footer class="footer mt-auto py-3 " style="background-color: bisque;border-radius:20px">
       <div class="text-center p-4">
+        
+        <a href="home.html" class="navbar-brand" >
+          <h1><b><span  style="color:palevioletred;">Online</span> Store</b></h1>
+      </a>
+
+      <p>Everything you need you can find here, clothes for children, women, men.
+        Face care products from the best brands.</p>
+     
+      <small><i class="bi bi-geo-alt-fill"></i>123 Street, Tirana, Albania</small>
+
+      <p></p>
+      
+        <small><i class="bi bi-telephone-fill"></i>+355 69 34 56 789</small>
+
+        <p></p>
+       
+        
+        <small><i class="bi bi-envelope"></i>online-store@gmail.com</small>
+        <p></p>
         © Copyright -
-        <a
-          class="text-reset fw-bold text-decoration-none"
-          target="_blank"
-          href="https://github.com/Eftiola/online-store"
-          >Python10 Tr 2022</a
-        >
+          <a
+              class="text-reset fw-bold text-decoration-none"
+              target="_blank"
+              href="https://github.com/Eftiola/online-store"
+              >Python10 Tr 2022</a
+              >
+        
+                 
+              </div>
+  </div>
       </div>
     </footer>
     {% block scripts %}

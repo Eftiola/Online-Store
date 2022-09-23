@@ -1,32 +1,60 @@
-{% extends "base.html" %} {% load mptt_tags %} {% block title %}Categories
-{%endblock title %} {%block content %}
-<h1>Categories</h1>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  {% if request.user == product.user or perms.product.add_product %}
-  <a class="btn btn-info" href="{% url 'category_add' %}">Add new Category</a>
-  {%endif%}
+{% extends "base.html" %} {% load mptt_tags %} {% block title %}Categories {%endblock title %}
+{%block content %}
+
+<header>
+  
+
+    <div class="container-fluid  d-none d-lg-block" style="min-height: 200px ;  background-color: bisque; border-radius: 20px;" >
+ 
+      <div class="row py-2 px-lg-5-center" style="position: absolute;
+      left: 450px;
+      top: 230px;" >
+        
+           
+        <center>
+        <div class="col-lg-6 text-left mb-2 mb-lg-9" >
+        
+          
+         
+           <div class="d-inline-flex align-items-center" style="color:gray;">
+            
+             <small><i class="fa fa-phone-alt mr-2" ></i><h4>Categories</h4></small>
+              <small class="px-3">|</small>
+              <small><a  href="home.html" style="color: gray;"><h5>Home</h5></a></small>
+            
+            </div>
+          
+        </div>
+        </center>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          {% if request.user == product.user or perms.product.add_product %}
+             <center><small><a class="btn btn-info" href="{% url 'category_add' %}" style="background-color:bisque;color: gray;" >Add new Category</a></small></center>
+          {%endif%}   
+        </div>
+      </div>
+  
+    </div>
+  
+ 
+</header>
+<div class="list-group">
+      
+  
+          {% recursetree categories %}
+                  <!-- <li> -->
+                    <a class="list-group-item list-group-item-action"  href="{% url 'product_list' %}?cat={{ node.pk }}" style="color:gray; border-color: pink;border-radius: 10px;"><b>{{ node.name }}</b><small class="text-muted"></small></small></a>
+                       {% if not node.is_leaf_node %}
+                           <ul class="children">
+                           {{ children }}
+                           </ul>
+                       {% endif %}
+                   <!-- </li> -->
+      
+                {% endrecursetree %}
+             </ul>
+         
+
 </div>
 
-<ul class="root">
-  {% recursetree categories %}
-  <li>
-    <a href="{% url 'product_list' %}?cat={{ node.pk }}">{{ node.name }}</a>
-    {% if not node.is_leaf_node %}
-    <ul class="children">
-      {{ children }}
-    </ul>
-    {% endif %}
-  </li>
-  {% endrecursetree %}
-</ul>
-
-<!-- <div class="col-md-4">
-  
-  <a href="{% url 'product_list' %}">All</a>
-  {% for category in cat_list %}
-  <li>
-    <a href="{% url 'product_list' %}?category={{category.name}}">{{ category.name }}</a>
-  </li>
-  {% endfor %}
-</div>  -->
 {% endblock content %}
+
