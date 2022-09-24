@@ -19,7 +19,7 @@ Activate the virtual environment:
     >venv\Scripts\activate
 
 * if you are on MacOS or Linux
-    >venv/bin/activate
+    > . venv/bin/activate
 ------------
 
 Install the required packages:
