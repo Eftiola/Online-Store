@@ -154,7 +154,7 @@ def get_stripe_pubkey(request):
 @login_required
 def create_checkout_session(request):
     if request.method == "GET":
-        domain_url = "http://localhost:8000/"
+        domain_url = request.build_absolute_uri("/").strip("/")
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         line_items = []
@@ -181,8 +181,8 @@ def create_checkout_session(request):
             # have the session ID set as a query param
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url
-                + "products/payments/success/?session_id={CHECKOUT_SESSION_ID}",
-                cancel_url=domain_url + "products/payments/cancelled/",
+                + "/products/payments/success/?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url=domain_url + "/products/payments/cancelled/",
                 payment_method_types=["card"],
                 mode="payment",
                 line_items=line_items,
