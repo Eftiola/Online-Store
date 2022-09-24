@@ -3,7 +3,6 @@ import os
 from environs import Env
 
 
-
 env = Env()
 env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -154,5 +153,11 @@ LOGOUT_REDIRECT_URL = "/"
 CART_SESSION_ID = "cart"
 
 
-STRIPE_PUBLISHABLE_KEY = env.str("STRIPE_PUBLISHABLE_KEY", 'pk_test_51LkDf2HMG1hOZ6nUzXwP6Go2QSBil63Tc3fifFsZ3it96nPZYdpTgouKVov1bTLf5d0ihuDmkfITG2rTHLreHtrd00v0l20boY')
-STRIPE_SECRET_KEY = env.str("STRIPE_SECRET_KEY",'sk_test_51LkDf2HMG1hOZ6nUV2c037ElYNiGlws83VQSSXQZ0YDTH3zG9kj7THGvR67O0jPeVOtTMVdLqBvWJSxxmBHdK5XC00af5VZ1q6')
+STRIPE_PUBLISHABLE_KEY = env.str(
+    "STRIPE_PUBLISHABLE_KEY",
+    "pk_test_51LkDf2HMG1hOZ6nUzXwP6Go2QSBil63Tc3fifFsZ3it96nPZYdpTgouKVov1bTLf5d0ihuDmkfITG2rTHLreHtrd00v0l20boY",
+)
+STRIPE_SECRET_KEY = env.str(
+    "STRIPE_SECRET_KEY",
+    "sk_test_51LkDf2HMG1hOZ6nUV2c037ElYNiGlws83VQSSXQZ0YDTH3zG9kj7THGvR67O0jPeVOtTMVdLqBvWJSxxmBHdK5XC00af5VZ1q6",
+)

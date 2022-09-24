@@ -67,7 +67,7 @@
     padding:20px 10px;
 }
 .central-div .fa-bookmark{
-   font-size:30px;
+   font-size:1px;
 }
 .central-div .fa-bookmark-red{
     color:red;
@@ -123,16 +123,18 @@
       class="central-div"
       
     >
-      <h3
-       
-       
+      <h3 style="
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 2px 1px;
+    " 
       >
         {{ product.description }}
       </h3>
       <i class="fa fa-bookmark"></i>
     </div>
-    <div class="price" 
-    
+    <div class="price" >
       <p>${{ product.price|floatformat:2 }}</p>
     </div>
   </div>

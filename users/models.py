@@ -1,8 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 
@@ -11,12 +8,15 @@ ROLE = (
     ("USER", "User"),
 )
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
-    role = models.CharField(choices=ROLE, max_length=50, default='User', blank=True, null=True)
+    role = models.CharField(
+        choices=ROLE, max_length=50, default="User", blank=True, null=True
+    )
     start_date = models.DateTimeField(default=timezone.now)
     country = models.CharField(max_length=30, blank=True, null=True)
     street_address = models.CharField(max_length=200, blank=True, null=True)
