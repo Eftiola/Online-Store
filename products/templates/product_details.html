@@ -1,5 +1,84 @@
 {% extends 'base.html' %} {% block content %}
 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin:0;
+    padding:0;
+}
+
+
+.card{
+    height:350px;
+    width:300px;
+    border-radius:10px;
+    background-color:rgb(243, 253, 253);
+    overflow:hidden;
+    cursor:pointer;
+
+}
+.border{
+    height:220px;
+    width:100%;
+    border:2px solid black;
+    background-color:#f8d3ba;
+    border:none;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+   
+}
+.border:hover i{
+    position:absolute;
+    top:10px;
+}
+.border i{
+    position:absolute;
+    top:-100px;
+    right:10px;
+    font-size:25px;
+    color:white;
+     transition:all 0.5s;
+}
+.border .i-red{
+    color:red;
+}
+.border img{
+     height:150px;
+    width:150px;
+    object-fit:cover;
+      transition:all 2s;
+}
+.card .border img{
+       animation:anim 10s infinite;
+}
+@keyframes anim{
+    from{
+         transform:rotate(0deg);
+    }
+    to{
+         transform:rotate(360deg);
+    }
+}
+.central-div{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 10px;
+}
+.central-div .fa-bookmark{
+   font-size:30px;
+}
+.central-div .fa-bookmark-red{
+    color:red;
+    border:none;
+}
+.price p{
+    color:#54627B;
+    padding:0px 10px;
+}
+</style>
+
 <div class="d-flex justify-content-between align-items-center">
   <h2 style="color: rgb(230, 64, 155)">{{ product.name }}</h2>
   <div>
@@ -22,39 +101,19 @@
 <div class="container">
   <div
     class="card"
-    style="
-      height: 400px;
-      width: 400px;
-      border-radius: 10px;
-      background-color: rgb(252, 195, 195);
-      overflow: hidden;
-      cursor: pointer;
-    "
+    
   >
     <div
       class="border"
-      style="
-        height: 220px;
-        width: 100%;
-        border: 2px solid rgb(243, 203, 203);
-        background-color: #f1bfbf;
-        border: none;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      "
+      
+      
     >
       <i class="fa fa-heart"></i>
       {% if product.image %}
       <img
         class="product-image"
-        style="
-          height: 150px;
-          width: 150px;
-          object-fit: cover;
-          transition: all 2s;
-        "
+        
+        
         src="{{product.image.url}}"
         width="200"
       />
@@ -62,21 +121,18 @@
     </div>
     <div
       class="central-div"
-      style="display: flex; justify-content: space-between; padding: 20px 10px"
+      
     >
       <h3
-        style="
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          padding: 2px 1px;
-        "
+       
+       
       >
         {{ product.description }}
       </h3>
       <i class="fa fa-bookmark"></i>
     </div>
-    <div class="price" style="color: #54627b; padding: 0px 10px">
+    <div class="price" 
+    
       <p>${{ product.price|floatformat:2 }}</p>
     </div>
   </div>
