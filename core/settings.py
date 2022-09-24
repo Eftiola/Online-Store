@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from environs import Env
 
+IS_HEROKU = "DYNO" in os.environ
 
 env = Env()
 env.read_env()
@@ -16,7 +17,10 @@ SECRET_KEY = env("SECRET_KEY", "SuperSecret")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", True)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
+if IS_HEROKU:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 
 # Application definition
